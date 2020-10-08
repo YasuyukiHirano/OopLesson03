@@ -13,7 +13,7 @@ namespace Chapter6
     {
         static void Main(string[] args)
         {
-            #region
+            #region  練習1
             //var numbers = new List<int> { 9, 7, -5, 4, 2, 5, 4, 2, -4, 8, -1, 6, 4,};
             //Console.WriteLine($"平均値: {numbers.Average()}");
             //Console.WriteLine($"合計値: {numbers.Sum()}");            
@@ -72,7 +72,66 @@ namespace Chapter6
             //{
             //    Console.WriteLine(item.Title + " ");
             //}
-#endregion
+            #endregion
+
+            #region 練習2
+            ////整数の例
+            //var numbers = new List<int> { 19, 17, 15, 24, 12, 25, 14, 20, 12, 28, 19, 30, 24 };
+
+            ////var strings = numbers.Select(n => n.ToString("0000")).ToArray();
+            ////foreach (var item in strings)
+            ////{
+            ////    Console.Write(item + " ");
+            ////}
+
+            //numbers.Distinct().Select(n => n.ToString("0000")).ToList().ForEach(s => Console.Write(s + " "));
+            //Console.WriteLine("");
+
+            ////並べ替え
+            //var sortedNumbers = numbers.Distinct().OrderBy(n => n);
+            //foreach (var nums in sortedNumbers)
+            //{
+            //    Console.Write(nums + " ");
+            //}
+
+
+            //// 文字列
+            //var words = new List<string> { "Microsoft", "Apple", "Google", "Oracle", "Facebook", };
+
+            //var lower = words.Select(name => name.ToLower()).ToArray();
+
+            ////オブジェクトの例
+            //var books = Books.GetBooks();
+
+            ////本のタイトルリスト
+            //var titles = books.Select(name => name.Title);
+
+            //foreach (var title in titles)
+            //{
+            //    Console.WriteLine(title + " ");
+            //}
+            //Console.WriteLine();
+
+
+            ////ページ数の多い順に並び替え(又は金額の高い順)
+            //var sortedPages = books.OrderByDescending(x => x.Pages);
+            //Console.Write("ページ数の多い順は");
+            //foreach (var item in sortedPages)
+            //{
+            //    Console.WriteLine(item.Title + " " + item.Pages);
+            //}
+            //Console.WriteLine("");
+
+            //var sortedPrice = books.OrderByDescending(x => x.Price);
+            //Console.Write("金額の高い順は");
+            //foreach (var item in sortedPrice)
+            //{
+            //    Console.WriteLine(item.Title + " " + item.Price);
+            //}
+            //Console.WriteLine();
+            #endregion
+
+
         }
     }
 }
