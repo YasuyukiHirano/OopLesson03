@@ -131,7 +131,59 @@ namespace Chapter6
             //Console.WriteLine();
             #endregion
 
+            #region 演習問題6-1
+            var numbers = new int[] { 5, 10, 17, 9, 3, 21, 10, 40, 21, 3, 35 };
 
+            #region  6-1-1
+            Console.WriteLine("-----6-1-1-----");
+            Console.WriteLine("最大値は" + numbers.Max(x => x) + "です。");
+            Console.WriteLine("");
+            #endregion
+            
+
+            #region 6-1-2
+            Console.WriteLine("-----6-1-2-----");
+            var num2 = numbers.Skip(9).Take(2) ;
+            foreach (var item in num2)
+            {
+                Console.Write(item + " ");
+            }
+            Console.WriteLine("");
+            Console.WriteLine("");
+            #endregion
+
+
+            #region 6-1-3
+            Console.WriteLine("-----6-1-3-----");
+            var num3 = numbers.Select(x => x.ToString());
+            foreach (var item in num3)
+            {
+                Console.Write(item + " ");
+            }
+            Console.WriteLine("");
+            Console.WriteLine("");
+            #endregion
+
+
+            #region 6-1-4
+            Console.WriteLine("-----6-1-4-----");
+            var num4 = numbers.OrderBy(x => x).Take(3);
+            foreach (var item in num4)
+            {
+                Console.Write(item + " ");
+            }
+            Console.WriteLine("");
+            Console.WriteLine("");
+            #endregion
+
+
+            #region 6-1-5
+            Console.WriteLine("-----6-1-5-----");
+            var num5 = numbers.Distinct().Count(x => x >= 10);
+            Console.WriteLine(num5);
+            #endregion
+
+            #endregion         
         }
     }
 }
