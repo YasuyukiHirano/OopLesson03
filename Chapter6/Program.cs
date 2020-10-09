@@ -132,58 +132,136 @@ namespace Chapter6
             #endregion
 
             #region 演習問題6-1
-            var numbers = new int[] { 5, 10, 17, 9, 3, 21, 10, 40, 21, 3, 35 };
+            //var numbers = new int[] { 5, 10, 17, 9, 3, 21, 10, 40, 21, 3, 35 };
 
-            #region  6-1-1
-            Console.WriteLine("-----6-1-1-----");
-            Console.WriteLine("最大値は" + numbers.Max(x => x) + "です。");
-            Console.WriteLine("");
-            #endregion
+            //#region  6-1-1
+            //Console.WriteLine("-----6-1-1-----");
+            //Console.WriteLine("最大値は" + numbers.Max(x => x) + "です。");
+            //Console.WriteLine("");
+            //#endregion
             
 
-            #region 6-1-2
-            Console.WriteLine("-----6-1-2-----");
-            var num2 = numbers.Skip(9).Take(2) ;
-            foreach (var item in num2)
-            {
-                Console.Write(item + " ");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("");
-            #endregion
+            //#region 6-1-2
+            //Console.WriteLine("-----6-1-2-----");
+            //var num2 = numbers.Length-2;
+            //foreach (var item in numbers.Skip(num2))
+            //{
+            //    Console.Write(item + " ");
+            //}
+            //Console.WriteLine("");
+            //Console.WriteLine("");
+            //#endregion
 
 
-            #region 6-1-3
-            Console.WriteLine("-----6-1-3-----");
-            var num3 = numbers.Select(x => x.ToString());
-            foreach (var item in num3)
-            {
-                Console.Write(item + " ");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("");
-            #endregion
+            //#region 6-1-3
+            //Console.WriteLine("-----6-1-3-----");
+            //var num3 = numbers.Select(x => x.ToString());
+            //foreach (var item in num3)
+            //{
+            //    Console.Write(item + " ");
+            //}
+            //Console.WriteLine("");
+            //Console.WriteLine("");
+            //#endregion
 
 
-            #region 6-1-4
-            Console.WriteLine("-----6-1-4-----");
-            var num4 = numbers.OrderBy(x => x).Take(3);
-            foreach (var item in num4)
-            {
-                Console.Write(item + " ");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("");
-            #endregion
+            //#region 6-1-4
+            //Console.WriteLine("-----6-1-4-----");
+            //var num4 = numbers.OrderBy(x => x).Take(3);
+            //foreach (var item in num4)
+            //{
+            //    Console.Write(item + " ");
+            //}
+            //Console.WriteLine("");
+            //Console.WriteLine("");
+            //#endregion
 
 
-            #region 6-1-5
-            Console.WriteLine("-----6-1-5-----");
-            var num5 = numbers.Distinct().Count(x => x >= 10);
-            Console.WriteLine(num5);
-            #endregion
+            //#region 6-1-5
+            //Console.WriteLine("-----6-1-5-----");
+            //var num5 = numbers.Distinct().Count(x => x >= 10);
+            //Console.WriteLine(num5);
+            //#endregion
 
             #endregion         
+
+            #region 演習問題6-2
+            var books = new List<Book> {
+            new Book { Title = "C#プログラミングの新常識", Price = 3800, Pages = 378 },
+            new Book { Title = "ラムダ式とLINQの極意", Price = 2500, Pages = 312 },
+            new Book { Title = "ワンダフル・C#ライフ", Price = 2900, Pages = 385 },
+            new Book { Title = "一人で学ぶ並列処理プログラミング", Price = 4800, Pages = 464 },
+            new Book { Title = "フレーズで覚えるC#入門", Price = 5300, Pages = 604 },
+            new Book { Title = "私でも分かったASP.NET MVC", Price = 3200, Pages = 453 },
+            new Book { Title = "楽しいC#プログラミング教室", Price = 2540, Pages = 348 },
+            };
+
+
+            #region 6-2-1
+            Console.WriteLine("-----6-2-1-----");
+            var num1 = books.Where(x => x.Title == "ワンダフル・C#ライフ");
+            foreach (var item in num1)
+            {
+                Console.WriteLine("価格: " + item.Price + "円" + " ページ数: " + item.Pages + "ページ");
+            }
+            Console.WriteLine("");
+            #endregion
+
+
+            #region 6-2-2
+            Console.WriteLine("-----6-2-2-----");
+            var num2 = books.Count(x => x.Title.Contains("C#"));
+            Console.WriteLine(num2 + "冊");
+            Console.WriteLine("");
+            #endregion
+
+
+            #region 6-2-3
+            Console.WriteLine("-----6-2-3-----");
+            var num3 = books.Where(x => x.Title.Contains("C#")).Average(x => x.Pages);
+            Console.WriteLine(num3 + "ページ");
+            Console.WriteLine("");
+            #endregion
+
+
+            #region 6-2-4
+            Console.WriteLine("-----6-2-4-----");
+            var num4 = books.FirstOrDefault(x => x.Price >= 4000);
+            Console.WriteLine(num4.Title);
+            Console.WriteLine("");
+            #endregion
+
+
+            #region 6-2-5
+            Console.WriteLine("-----6-2-5-----");
+            var num5 = books.Where(x => x.Price <= 4000).Max(x => x.Pages);
+            Console.WriteLine(num5 + "ページ");
+            Console.WriteLine();
+            #endregion
+
+
+            #region 6-2-6
+            Console.WriteLine("-----6-2-6-----");
+            var num6 = books.Where(x => x.Pages >= 400).OrderByDescending(x => x.Price);
+            foreach (var item in num6)
+            {
+                Console.WriteLine("タイトル: " + item.Title + " / 価格: " + item.Price);
+            }
+            Console.WriteLine("");
+            #endregion
+
+
+            #region 6-2-7
+            Console.WriteLine("-----6-2-7-----");
+            var num7 = books.Where(x => x.Title.Contains("C#") && x.Pages <= 500);
+            foreach (var item in num7)
+            {
+                Console.WriteLine("タイトル: " + item.Title);
+            }
+            Console.WriteLine("");
+            #endregion
+
+            #endregion
         }
     }
 }
