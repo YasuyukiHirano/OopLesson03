@@ -261,6 +261,24 @@ namespace Chapter6
             Console.WriteLine("");
             #endregion
 
+            Console.WriteLine("-すべての書籍から「C#」の文字がいくつあるのかをカウントする-");
+            int count = 0;
+            foreach (var book in books.Where(b => b.Title.Contains("C#")))
+            {
+                for (int i = 0; i < book.Title.Length -1; i++)
+                {
+                    if ((book.Title[i] == 'C') && (book.Title[i+1] == '#'))
+                    {
+                        count++;
+                    }
+                }
+            }
+            Console.WriteLine($"文字列「C#」の個数は{count}です。");
+
+            //var num8 = books.Where(x => x.Title.Contains("C#")).ToList().Count(x => x.Title.Contains("C#"));
+            //Console.WriteLine("C#が含まれている個数は" + num8 + "個です。");
+            //Console.WriteLine();
+
             #endregion
         }
     }
