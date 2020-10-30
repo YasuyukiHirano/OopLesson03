@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter6", "Chapter6\Chapte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter7", "Chapter7\Chapter7.csproj", "{07E33597-A527-484C-8A80-986A37833D87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAppllication", "SampleAppllication\SampleAppllication.csproj", "{BC83CDBC-F3B9-415D-B733-A2C547081408}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendMailApp", "SendMailApp\SendMailApp.csproj", "{51ACEC37-B4D4-4FC9-A185-2B178620E3DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{07E33597-A527-484C-8A80-986A37833D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07E33597-A527-484C-8A80-986A37833D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07E33597-A527-484C-8A80-986A37833D87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC83CDBC-F3B9-415D-B733-A2C547081408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC83CDBC-F3B9-415D-B733-A2C547081408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC83CDBC-F3B9-415D-B733-A2C547081408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC83CDBC-F3B9-415D-B733-A2C547081408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51ACEC37-B4D4-4FC9-A185-2B178620E3DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51ACEC37-B4D4-4FC9-A185-2B178620E3DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51ACEC37-B4D4-4FC9-A185-2B178620E3DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51ACEC37-B4D4-4FC9-A185-2B178620E3DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
