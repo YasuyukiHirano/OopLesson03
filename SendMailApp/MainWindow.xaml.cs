@@ -23,6 +23,18 @@ namespace SendMailApp
         public MainWindow()
         {
             InitializeComponent();
+        }       
+
+        //メール送信処理
+        private void Ok_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //メールキャンセル処理
+        private void btCancel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
