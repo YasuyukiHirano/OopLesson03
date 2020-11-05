@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,21 +23,56 @@ namespace SendMailApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        SmtpClient sc = new SmtpClient();
+
         public MainWindow()
         {
             InitializeComponent();
-        }       
-
-        //メール送信処理
-        private void Ok_Click(object sender, RoutedEventArgs e)
-        {
-
+            sc.SendCompleted += Sc_SendCompleted;
         }
 
-        //メールキャンセル処理
+        //送信完了イベント
+        private void Sc_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                MessageBox.Show("送信はキャンセルされました。");
+            }
+            else
+            {
+                MessageBox.Show(e.Error?.Message ?? "送信完了しました。");
+            }            
+        }        
+
+        //メール送信処理
+        private void btOk_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text);
+
+                msg.Subject = tbTitle.Text; //件名
+                msg.Body = tbBody.Text;     //本文
+                
+                sc.Host = "smtp.gmail.com"; //SMTPサーバーの設定
+                sc.Port = 587;              //ポート番号
+                sc.EnableSsl = true;        //SSLの許可
+                sc.Credentials = new NetworkCredential("ojsinfosys01@gmail.com", "ojsInfosys2020"); //認証設定
+
+                //sc.Send(msg);               //送信
+                sc.SendMailAsync(msg);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //送信キャンセル処理
         private void btCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            sc.SendAsyncCancel();
         }
     }
 }
