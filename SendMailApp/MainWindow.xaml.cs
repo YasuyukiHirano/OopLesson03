@@ -28,7 +28,7 @@ namespace SendMailApp
         public MainWindow()
         {
             InitializeComponent();
-            sc.SendCompleted += Sc_SendCompleted;
+            sc.SendCompleted += Sc_SendCompleted;            
         }
 
         //送信完了イベント
@@ -51,9 +51,15 @@ namespace SendMailApp
             {
                 MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text);
 
+                if (tbBcc.Text != "" && tbCc.Text != "")
+                {
+                    msg.Bcc.Add(tbBcc.Text);
+                    msg.CC.Add(tbCc.Text);
+                }                
+
                 msg.Subject = tbTitle.Text; //件名
                 msg.Body = tbBody.Text;     //本文
-                
+                                
                 sc.Host = "smtp.gmail.com"; //SMTPサーバーの設定
                 sc.Port = 587;              //ポート番号
                 sc.EnableSsl = true;        //SSLの許可
