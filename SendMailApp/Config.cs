@@ -6,10 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace SendMailApp
 {
-    class Config
+    public class Config
     {
         //単一のインスタンス
         private static Config Instance;
@@ -68,6 +70,40 @@ namespace SendMailApp
             this.Ssl = ssl;
 
             return true;
+        }
+
+        public void Serialise()     //シリアル化(P305参照)
+        {
+            var obj = new Config()
+            {
+                Smtp = this.Smtp,
+                MailAddress = this.MailAddress,
+                PassWord = this.PassWord,
+                Port = this.Port,
+                Ssl = this.Ssl
+            };
+
+            using (var write = XmlWriter.Create("config.xml"))
+            {
+                var serializer = new XmlSerializer(obj.GetType());
+                serializer.Serialize(write, obj);
+            }
+        }
+
+        public void DeSirialise()   //逆シリアル化(P307参照)
+        {
+            using (var reader = XmlReader.Create("config.xml"))
+            {
+                var serializer = new XmlSerializer(typeof(Config));
+                var obj = serializer.Deserialize(reader) as Config;
+                Console.WriteLine(obj);
+
+                this.Smtp = obj.Smtp;
+                this.MailAddress = obj.MailAddress;
+                this.PassWord = obj.PassWord;
+                this.Port = obj.Port;
+                this.Ssl = obj.Ssl;
+            }
         }
     }
 }
