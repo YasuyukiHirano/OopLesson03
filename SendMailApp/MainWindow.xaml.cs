@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -70,6 +71,11 @@ namespace SendMailApp
 
                 //sc.Send(msg);               //送信
                 sc.SendMailAsync(msg);
+
+                foreach (var item in tbAthor.Items)
+                {
+                    msg.Attachments.Add(new Attachment(item.ToString()));
+                }
             }
             catch (Exception ex)
             {
@@ -82,6 +88,7 @@ namespace SendMailApp
         private void btCancel_Click(object sender, RoutedEventArgs e)
         {
             sc.SendAsyncCancel();
+            this.Close();
         }
 
         //設定ボタンイベントハンドラ
@@ -128,6 +135,21 @@ namespace SendMailApp
                 MessageBox.Show(ex.Message);
             }
             
+        }
+
+        private void btAdd_Click(object sender, RoutedEventArgs e)
+        {
+            var fod = new OpenFileDialog();
+
+            if (fod.ShowDialog() == true)
+            {
+                tbAthor.Items.Add(fod.FileName);
+            }
+        }
+
+        private void btDel_Click(object sender, RoutedEventArgs e)
+        {
+            tbAthor.Items.Clear();
         }
     }
 }
