@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -83,23 +84,50 @@ namespace SendMailApp
             sc.SendAsyncCancel();
         }
 
-        //設定画面表示
+        //設定ボタンイベントハンドラ
         public void btConfig_Click(object sender, RoutedEventArgs e)
         {
-            ConfigWindow configWindow = new ConfigWindow();
-            configWindow.ShowDialog();
+            ConfigWindowShow(); //設定画面表示
+        }
+
+        //設定画面表示
+        private static void ConfigWindowShow()
+        {
+            ConfigWindow configWindow = new ConfigWindow(); //設定画面のインスタンスを生成
+            configWindow.ShowDialog();  //表示
         }
 
         //メインウィンドウがロードされるタイミングで呼び出される
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Config.GetInstance().DeSirialise();
+            try
+            {
+                Config.GetInstance().DeSirialise();
+            }
+            catch (FileNotFoundException)
+            {                
+                ConfigWindowShow(); //ファイルが存在しないので設定画面を先に表示
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }            
         }
 
         //メインウィンドウが閉じられるタイミングで呼び出される
         public void Window_Closed(object sender, EventArgs e)
         {
-            Config.GetInstance().Serialise();
+            try
+            {
+                Config.GetInstance().Serialise();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            
         }
     }
 }

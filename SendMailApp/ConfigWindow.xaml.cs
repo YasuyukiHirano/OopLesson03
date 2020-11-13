@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.MessageBox;
 
 namespace SendMailApp
 {
@@ -20,10 +21,14 @@ namespace SendMailApp
     /// </summary>
     public partial class ConfigWindow : Window
     {
+        public bool Change = false;
+
         public ConfigWindow()
         {
             InitializeComponent();
         }
+
+        public bool Modified { get; set; }
 
         //設定ボタン
         private void btDefault_Click(object sender, RoutedEventArgs e)
@@ -36,31 +41,66 @@ namespace SendMailApp
             tbSender.Text =  tbUserName.Text = cf.MailAddress;
             tbPassWord.Password = cf.PassWord;
             cbSsl.IsChecked = cf.Ssl;
-
         }
 
         //適用(更新)ボタン
         private void btApply_Click(object sender, RoutedEventArgs e)
         {
-            (Config.GetInstance()).UpdateStatus(
+            try
+            {
+                (Config.GetInstance()).UpdateStatus(
                 tbSmtp.Text,
                 tbUserName.Text,
                 tbPassWord.Password,
                 int.Parse(tbPort.Text),
-                cbSsl.IsChecked??false); //更新処理を呼び出す
+                cbSsl.IsChecked ?? false); //更新処理を呼び出す
+                ChangeOk(sender, e);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("値を入力してください");
+            }
+            
         }
 
         //OKボタン
         private void btOk_Click(object sender, RoutedEventArgs e)
         {
-            btApply_Click(sender,e);    //更新処理を呼び出す
-            this.Close();
+            if (tbSmtp.Text == "" || tbUserName.Text == "" || tbPort.Text == "" || tbPassWord.Password == "" || tbSender.Text == "")
+            {
+                MessageBox.Show("未入力の項目があります。");
+
+            }
+            else
+            {
+                btApply_Click(sender, e);    //更新処理を呼び出す
+                this.Close();
+            }
         }
 
         //キャンセルボタン
         private void btCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (Change == true)
+            {
+                MessageBoxResult result = MessageBox.Show("内容が変更されています。保存しますか？", "Daanger", MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.Cancel)
+                {
+                    ChangeOk(sender, e);
+                    this.Close();
+                }
+                else if (result == MessageBoxResult.OK)
+                {
+                    btApply_Click(sender, e);
+                    this.Close();
+                }              
+            }
+            else
+            {
+                ChangeOk(sender, e);
+                this.Close();
+            }                         
         }
 
         //設定画面ロード時に一度だけ呼び出される
@@ -72,6 +112,22 @@ namespace SendMailApp
             tbSender.Text = tbUserName.Text = cf.MailAddress;
             tbPassWord.Password = cf.PassWord;
             cbSsl.IsChecked = cf.Ssl;
+            ChangeOk(sender, e);
+        }
+
+        private void Config_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Change = true;
+        }
+
+        private void tbPassWord_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            Change = true;
+        }
+
+        private void ChangeOk(object sender, RoutedEventArgs e)
+        {
+            Change = false;
         }
     }
 }

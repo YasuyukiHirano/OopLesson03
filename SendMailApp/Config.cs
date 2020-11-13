@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Xml;
@@ -14,16 +15,16 @@ namespace SendMailApp
     public class Config
     {
         //単一のインスタンス
-        private static Config Instance;
+        private static Config instance;
 
         //インスタンスの取得
         public static Config GetInstance()
         {
-            if (Instance == null)
+            if (instance == null)
             {
-                Instance = new Config();
+                instance = new Config();
             }
-            return Instance;
+            return instance;
         }
 
         public string Smtp { get; set; }            //SMTPサーバー
@@ -72,37 +73,24 @@ namespace SendMailApp
             return true;
         }
 
-        public void Serialise()     //シリアル化(P305参照)
+        //シリアル化(P305参照)
+        public void Serialise()
         {
-            var obj = new Config()
-            {
-                Smtp = this.Smtp,
-                MailAddress = this.MailAddress,
-                PassWord = this.PassWord,
-                Port = this.Port,
-                Ssl = this.Ssl
-            };
-
             using (var write = XmlWriter.Create("config.xml"))
             {
-                var serializer = new XmlSerializer(obj.GetType());
-                serializer.Serialize(write, obj);
+                var serializer = new XmlSerializer(instance.GetType());
+                serializer.Serialize(write, instance);
             }
         }
 
-        public void DeSirialise()   //逆シリアル化(P307参照)
+        //逆シリアル化(P307参照)
+        public void DeSirialise()
         {
             using (var reader = XmlReader.Create("config.xml"))
             {
                 var serializer = new XmlSerializer(typeof(Config));
-                var obj = serializer.Deserialize(reader) as Config;
-                Console.WriteLine(obj);
-
-                this.Smtp = obj.Smtp;
-                this.MailAddress = obj.MailAddress;
-                this.PassWord = obj.PassWord;
-                this.Port = obj.Port;
-                this.Ssl = obj.Ssl;
+                instance = serializer.Deserialize(reader) as Config;
+                Console.WriteLine(instance);
             }
         }
     }
