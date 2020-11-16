@@ -46,21 +46,29 @@ namespace SendMailApp
         //適用(更新)ボタン
         private void btApply_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (TextCheck(sender,e))
             {
-                (Config.GetInstance()).UpdateStatus(
-                tbSmtp.Text,
-                tbUserName.Text,
-                tbPassWord.Password,
-                int.Parse(tbPort.Text),
-                cbSsl.IsChecked ?? false); //更新処理を呼び出す
-                ChangeOk(sender, e);
-            }
-            catch (Exception ex)
-            {
+                try
+                {
+                    (Config.GetInstance()).UpdateStatus(
+                    tbSmtp.Text,
+                    tbUserName.Text,
+                    tbPassWord.Password,
+                    int.Parse(tbPort.Text),
+                    cbSsl.IsChecked ?? false); //更新処理を呼び出す
+                    ChangeOk(sender, e);
+                }
+                catch (Exception ex)
+                {
 
-                MessageBox.Show("値を入力してください");
+                    MessageBox.Show("値を入力してください");
+                }
             }
+            else
+            {
+                MessageBox.Show("正しい値を入力してください。");
+            }
+
             
         }
 
@@ -128,6 +136,22 @@ namespace SendMailApp
         private void ChangeOk(object sender, RoutedEventArgs e)
         {
             Change = false;
+        }
+
+        //入力文字チェッカー
+        private bool TextCheck(object sender, RoutedEventArgs e)
+        {
+            var check = false;
+
+            if (tbUserName.Text.Contains('@') == false)
+            {
+                check = false;                
+            }
+            else
+            {
+                check = true;
+            }
+            return check;
         }
     }
 }

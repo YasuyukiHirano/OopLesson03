@@ -137,6 +137,7 @@ namespace SendMailApp
             
         }
 
+        //追加ボタン
         private void btAdd_Click(object sender, RoutedEventArgs e)
         {
             var fod = new OpenFileDialog();
@@ -147,6 +148,7 @@ namespace SendMailApp
             }
         }
 
+        //削除ボタン
         private void btDel_Click(object sender, RoutedEventArgs e)
         {
             tbAthor.Items.Clear();
